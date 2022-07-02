@@ -17,6 +17,9 @@ public class MusselController : MonoBehaviour
     float smooth = 0.1f;
     public float torqueMult = 1.0f;
 
+    public Shell left;
+    public Shell right;
+
     [System.Serializable]
     public class Shell
     {
@@ -38,8 +41,6 @@ public class MusselController : MonoBehaviour
 
         const float smooth = 0.1f;
 
-
-
         public void Update()
         {
             float time = Time.time;
@@ -52,37 +53,31 @@ public class MusselController : MonoBehaviour
             thrusting = time - timeSinceLast < 0.3f && Input.GetKey(thrustKey);
             thrust = thrusting ? 1 : 0;
 
-            float factor = (time - timeSinceLast) / 0.3f;
-
             open = Mathf.SmoothDamp(open, target, ref velo, smooth);
 
             t.localEulerAngles = new Vector3(maxAngle * (1 - open) * side, 0, 0);
-
-            if (thrusting)
-                rb.AddForceAtPosition(t.parent.forward * (thrust * 10 * factor), forcePoint.position, ForceMode.Acceleration);
         }
     }
 
-    public Shell left;
-    public Shell right;
+
 
 
     void Update()
     {
-        right.Update();
         left.Update();
+        right.Update();
 
-        //if (left.thrusting && right.thrusting)
-        //    thrust = 1;
+        if (left.thrusting && right.thrusting)
+            thrust = 1;
 
         thrust -= Time.deltaTime;
         thrust = Mathf.Clamp01(thrust);
 
 
-        //rb.AddRelativeTorque(
-        //    Vector3.right * (left.thrust - right.thrust)
-        //    * torqueMult, ForceMode.Acceleration);
+        rb.AddRelativeTorque(
+            Vector3.right * (left.thrust - right.thrust)
+            * torqueMult, ForceMode.Acceleration);
 
-        //rb.AddForce(transform.forward * 10f * thrust * thrustMult, ForceMode.Acceleration);
+        rb.AddForce(transform.forward * 10f * thrust * thrustMult, ForceMode.Acceleration);
     }
 }
