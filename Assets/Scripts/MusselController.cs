@@ -7,8 +7,6 @@ public class MusselController : MonoBehaviour
     public Transform upShell;
     public Transform downShell;
 
-
-
     public float maxAngle = 30;
 
     Rigidbody _rb;
@@ -18,6 +16,13 @@ public class MusselController : MonoBehaviour
     float timeSinceLastRight;
 
     float thrust = 0;
+
+    [System.Serializable]
+    public class Shell
+    {
+        public Transform t;
+        public float timeSinceLast;
+    }
 
     void Update()
     {
@@ -35,10 +40,13 @@ public class MusselController : MonoBehaviour
         if (Input.GetKeyDown(rightKey))
             timeSinceLastRight = time;
 
+        bool thrustingLeft = time - timeSinceLastLeft < 0.3f;
+        bool thrustingRight = time - timeSinceLastRight < 0.3f;
 
+        float thrustLeft = thrustingLeft ? 1 : 0;
+        float thrustRight = thrustingRight ? 1 : 0;
 
-        if (time - timeSinceLastLeft < 0.5f &&
-            time - timeSinceLastRight < 0.5f)
+        if (thrustingLeft && thrustingRight)
             thrust = 1;
 
         thrust -= Time.deltaTime;
@@ -46,6 +54,8 @@ public class MusselController : MonoBehaviour
 
         upShell.localEulerAngles = new Vector3(-maxAngle * (1 - targetLeft), 0, 0);
         downShell.localEulerAngles = new Vector3(maxAngle * (1 - targetRight), 0, 0);
+
+        rb.AddRelativeTorque(Vector3.right * (thrustLeft - thrustRight), ForceMode.Acceleration);
 
         rb.AddForce(-transform.forward * 10f * thrust, ForceMode.Acceleration);
     }
