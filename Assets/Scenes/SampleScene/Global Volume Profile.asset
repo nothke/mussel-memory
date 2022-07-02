@@ -156,7 +156,7 @@ MonoBehaviour:
     showEyeDropper: 1
   precisionAlpha:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.871
   precisionAlphaDitherTexture:
     m_OverrideState: 0
     m_Value: {fileID: 2800000, guid: 4a3e96c03e7d7c34a8fb8f59764f1945, type: 3}
@@ -167,15 +167,15 @@ MonoBehaviour:
     max: 1
   distanceMin:
     m_OverrideState: 1
-    m_Value: 4.9
+    m_Value: 0
     min: 0
   distanceMax:
     m_OverrideState: 1
-    m_Value: 13.2
+    m_Value: 11.09
     min: 0.00001
   fogFalloffCurve:
     m_OverrideState: 1
-    m_Value: 0.86
+    m_Value: 0.147
     min: -1
     max: 1
   heightFalloffEnabled:
@@ -304,7 +304,7 @@ MonoBehaviour:
     m_Value: 1
   geometry:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.507
     min: 0
     max: 1
   geometryPushbackEnabled:
@@ -414,12 +414,12 @@ MonoBehaviour:
     m_Value: 1
   contrast:
     m_OverrideState: 1
-    m_Value: 0.595
+    m_Value: 0.478
     min: 0
     max: 1
   shoulder:
     m_OverrideState: 1
-    m_Value: 0.526
+    m_Value: 0.515
     min: 0
     max: 1
   graypointIn:
@@ -433,7 +433,7 @@ MonoBehaviour:
     min: 0
     max: 1
   whitepoint:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 10
   crossTalk:
     m_OverrideState: 1
@@ -442,7 +442,7 @@ MonoBehaviour:
     max: 1
   saturation:
     m_OverrideState: 1
-    m_Value: 0.131
+    m_Value: 0.12
     min: 0
     max: 1
   crossTalkSaturation:

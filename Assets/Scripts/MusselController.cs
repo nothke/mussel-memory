@@ -16,6 +16,11 @@ public class MusselController : MonoBehaviour
     float timeSinceLastRight;
 
     float thrust = 0;
+    public float thrustMult = 1;
+
+    float smooth = 0.1f;
+
+    public float torqueMult = 1.0f;
 
     [System.Serializable]
     public class Shell
@@ -23,6 +28,11 @@ public class MusselController : MonoBehaviour
         public Transform t;
         public float timeSinceLast;
     }
+
+    float leftOpen = 0;
+    float leftVelo = 0;
+    float rightOpen = 0;
+    float rightVelo = 0;
 
     void Update()
     {
@@ -40,8 +50,8 @@ public class MusselController : MonoBehaviour
         if (Input.GetKeyDown(rightKey))
             timeSinceLastRight = time;
 
-        bool thrustingLeft = time - timeSinceLastLeft < 0.3f;
-        bool thrustingRight = time - timeSinceLastRight < 0.3f;
+        bool thrustingLeft = time - timeSinceLastLeft < 0.3f && Input.GetKey(leftKey);
+        bool thrustingRight = time - timeSinceLastRight < 0.3f && Input.GetKey(rightKey);
 
         float thrustLeft = thrustingLeft ? 1 : 0;
         float thrustRight = thrustingRight ? 1 : 0;
@@ -52,11 +62,14 @@ public class MusselController : MonoBehaviour
         thrust -= Time.deltaTime;
         thrust = Mathf.Clamp01(thrust);
 
-        upShell.localEulerAngles = new Vector3(-maxAngle * (1 - targetLeft), 0, 0);
-        downShell.localEulerAngles = new Vector3(maxAngle * (1 - targetRight), 0, 0);
+        leftOpen = Mathf.SmoothDamp(leftOpen, targetLeft, ref leftVelo, smooth);
+        rightOpen = Mathf.SmoothDamp(rightOpen, targetRight, ref rightVelo, smooth);
 
-        rb.AddRelativeTorque(Vector3.right * (thrustLeft - thrustRight), ForceMode.Acceleration);
+        upShell.localEulerAngles = new Vector3(-maxAngle * (1 - leftOpen), 0, 0);
+        downShell.localEulerAngles = new Vector3(maxAngle * (1 - rightOpen), 0, 0);
 
-        rb.AddForce(-transform.forward * 10f * thrust, ForceMode.Acceleration);
+        rb.AddRelativeTorque(Vector3.right * (thrustLeft - thrustRight) * torqueMult, ForceMode.Acceleration);
+
+        rb.AddForce(-transform.forward * 10f * thrust * thrustMult, ForceMode.Acceleration);
     }
 }
