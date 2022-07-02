@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   isEnabled:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   bloom:
     m_OverrideState: 1
     m_Value: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {fileID: 0}
   grateMaskScale:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   scanlineSharpness:
     m_OverrideState: 1
@@ -58,7 +58,7 @@ MonoBehaviour:
     max: 1
   noiseSaturation:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
     min: 0
     max: 1
   grateMaskIntensityMin:
@@ -267,6 +267,7 @@ MonoBehaviour:
   - {fileID: 1463668633704196353}
   - {fileID: 1939921418246009886}
   - {fileID: -4722166961191511837}
+  - {fileID: 3045531507850126855}
 --- !u!114 &13119533060566987
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -377,12 +378,12 @@ MonoBehaviour:
     m_Value: 3
   targetRasterizationResolutionWidth:
     m_OverrideState: 1
-    m_Value: 256
+    m_Value: 4096
     min: 1
     max: 4096
   targetRasterizationResolutionHeight:
     m_OverrideState: 1
-    m_Value: 224
+    m_Value: 4096
     min: 1
     max: 4096
   isDepthBufferEnabled:
@@ -394,6 +395,61 @@ MonoBehaviour:
   isClearDepthBeforeUIEnabled:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &3045531507850126855
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d335ddfaff71d4493ab520ae36643e, type: 3}
+  m_Name: TonemapperVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  isEnabled:
+    m_OverrideState: 1
+    m_Value: 1
+  contrast:
+    m_OverrideState: 1
+    m_Value: 0.785
+    min: 0
+    max: 1
+  shoulder:
+    m_OverrideState: 1
+    m_Value: 0.591
+    min: 0
+    max: 1
+  graypointIn:
+    m_OverrideState: 0
+    m_Value: 0.18
+    min: 0
+    max: 1
+  graypointOut:
+    m_OverrideState: 0
+    m_Value: 0.18
+    min: 0
+    max: 1
+  whitepoint:
+    m_OverrideState: 0
+    m_Value: 10
+  crossTalk:
+    m_OverrideState: 0
+    m_Value: 0.534
+    min: 0
+    max: 1
+  saturation:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
+  crossTalkSaturation:
+    m_OverrideState: 1
+    m_Value: 0.072
+    min: 0.001
+    max: 1
 --- !u!114 &5242965335438499348
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -500,7 +556,7 @@ MonoBehaviour:
     max: 1
   accuracy:
     m_OverrideState: 1
-    m_Value: 0.296
+    m_Value: 1
     min: 0
     max: 1
   mode:
