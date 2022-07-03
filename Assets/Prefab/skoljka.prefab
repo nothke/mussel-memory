@@ -5427,7 +5427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7219045025550058806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000005957554, y: 0.040000048, z: 0.24700004}
+  m_LocalPosition: {x: -0.00000005957554, y: 0.040000048, z: 0.2122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3098798292152909668}
@@ -5552,7 +5552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8230707986025807306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.04, z: 0.247}
+  m_LocalPosition: {x: -0, y: -0.04, z: 0.2122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3098798291055051558}
@@ -5705,6 +5705,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086153290450860566, guid: 72e2746962a11f24e99f745048110e70,
+        type: 3}
+      propertyPath: ForceModule.y.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086153290450860566, guid: 72e2746962a11f24e99f745048110e70,
+        type: 3}
+      propertyPath: ForceModule.inWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086153290450860566, guid: 72e2746962a11f24e99f745048110e70,
+        type: 3}
+      propertyPath: ClampVelocityModule.dampen
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086153290450860566, guid: 72e2746962a11f24e99f745048110e70,
+        type: 3}
+      propertyPath: ClampVelocityModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72e2746962a11f24e99f745048110e70, type: 3}
