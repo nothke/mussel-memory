@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MusselController : MonoBehaviour
 {
+    public static MusselController e;
+    void Awake() { e = this; }
+
     public Transform upShell;
     public Transform downShell;
 
@@ -19,6 +22,19 @@ public class MusselController : MonoBehaviour
 
     public Shell left;
     public Shell right;
+    public Transform meat;
+
+    public float muscleScale = 1.0f;
+
+    public AudioClip[] dashClips;
+    public AudioClip[] openClips;
+
+    public float dashVolume = 1.0f;
+
+    public UnityEngine.Audio.AudioMixerGroup group;
+
+    public ParticleSystem[] prcticles;
+
 
     [System.Serializable]
     public class Shell
@@ -32,6 +48,7 @@ public class MusselController : MonoBehaviour
         public float timeSinceLast;
 
         public Transform forcePoint;
+        public Transform meatPoint;
 
         public float open = 0;
         public float velo = 0;
@@ -41,6 +58,7 @@ public class MusselController : MonoBehaviour
 
         const float smooth = 0.1f;
 
+
         public void Update()
         {
             float time = Time.time;
@@ -48,7 +66,15 @@ public class MusselController : MonoBehaviour
             float target = Input.GetKey(thrustKey) ? 1 : 0;
 
             if (Input.GetKeyDown(thrustKey))
+            {
                 timeSinceLast = time;
+                e.dashClips.Play2D(e.dashVolume, mixerGroup: e.group);
+            }
+
+            if (Input.GetKeyUp(thrustKey))
+            {
+                e.openClips.Play2D(e.dashVolume, mixerGroup: e.group);
+            }
 
             thrusting = time - timeSinceLast < 0.3f && Input.GetKey(thrustKey);
             thrust = thrusting ? 1 : 0;
@@ -59,10 +85,7 @@ public class MusselController : MonoBehaviour
         }
     }
 
-
-
-
-    void Update()
+    private void FixedUpdate()
     {
         left.Update();
         right.Update();
@@ -73,11 +96,27 @@ public class MusselController : MonoBehaviour
         thrust -= Time.deltaTime;
         thrust = Mathf.Clamp01(thrust);
 
+        float rotH = Input.GetAxis("Vertical");
 
         rb.AddRelativeTorque(
-            Vector3.right * (left.thrust - right.thrust)
-            * torqueMult, ForceMode.Acceleration);
+            ((Vector3.right * (left.thrust - right.thrust)) +
+            (Vector3.up * rotH))
+            * torqueMult,
+            ForceMode.Acceleration);
 
-        rb.AddForce(transform.forward * 10f * thrust * thrustMult, ForceMode.Acceleration);
+        rb.AddForce(transform.forward * thrust * thrustMult, ForceMode.Acceleration);
+    }
+
+    private void Update()
+    {
+        meat.transform.position = (left.meatPoint.position + right.meatPoint.position) * 0.5f;
+        float d = Vector3.Distance(left.meatPoint.position, right.meatPoint.position) * muscleScale;
+        meat.transform.localScale = new Vector3(1, d, 1);
+
+        foreach (var prc in prcticles)
+        {
+            var emission = prc.emission;
+            emission.rateOverTimeMultiplier = thrust * 100;
+        }
     }
 }
