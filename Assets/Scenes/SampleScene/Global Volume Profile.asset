@@ -19,12 +19,12 @@ MonoBehaviour:
     m_Value: 0
   bloom:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
     min: 0
     max: 1
   grateMaskMode:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 0
   grateMaskTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -43,12 +43,12 @@ MonoBehaviour:
     max: 1
   bloomSharpnessX:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.754
     min: 0
     max: 1
   bloomSharpnessY:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.633
     min: 0
     max: 1
   noiseIntensity:
@@ -101,11 +101,11 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   lightingIsEnabled:
-    m_OverrideState: 1
-    m_Value: 0
-  bakedLightingMultiplier:
     m_OverrideState: 0
     m_Value: 1
+  bakedLightingMultiplier:
+    m_OverrideState: 1
+    m_Value: 0.03
     min: 0
   vertexColorLightingMultiplier:
     m_OverrideState: 0
@@ -268,6 +268,7 @@ MonoBehaviour:
   - {fileID: 1939921418246009886}
   - {fileID: -4722166961191511837}
   - {fileID: 3045531507850126855}
+  - {fileID: 8346393026945367994}
 --- !u!114 &13119533060566987
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -414,12 +415,12 @@ MonoBehaviour:
     m_Value: 1
   contrast:
     m_OverrideState: 1
-    m_Value: 0.478
+    m_Value: 0.398
     min: 0
     max: 1
   shoulder:
     m_OverrideState: 1
-    m_Value: 0.515
+    m_Value: 0.5
     min: 0
     max: 1
   graypointIn:
@@ -433,7 +434,7 @@ MonoBehaviour:
     min: 0
     max: 1
   whitepoint:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 10
   crossTalk:
     m_OverrideState: 1
@@ -563,5 +564,52 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   colorspace:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &8346393026945367994
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad71758d66b75b45a6157133f3e6024, type: 3}
+  m_Name: AccumulationMotionBlurVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  weight:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 1
+  vignette:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -1
+    max: 1
+  dither:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
+  zoom:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -1
+    max: 1
+  zoomDither:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 1
+  anisotropy:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -1
+    max: 1
+  applyToUIOverlay:
     m_OverrideState: 0
     m_Value: 0
