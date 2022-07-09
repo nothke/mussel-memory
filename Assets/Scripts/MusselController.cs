@@ -96,7 +96,7 @@ public class MusselController : MonoBehaviour
         thrust -= Time.deltaTime;
         thrust = Mathf.Clamp01(thrust);
 
-        float rotH = Input.GetAxis("Vertical");
+        float rotH = Input.GetAxis("Horizontal");
 
         rb.AddRelativeTorque(
             ((Vector3.right * (left.thrust - right.thrust)) +
