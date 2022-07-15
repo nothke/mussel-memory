@@ -277,7 +277,7 @@ MonoBehaviour:
   torqueMult: -20
   left:
     rb: {fileID: 3098798291025483351}
-    thrustKey: 97
+    thrustKey: 115
     side: -1
     t: {fileID: 3098798292152909668}
     timeSinceLast: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
     thrust: 0
   right:
     rb: {fileID: 3098798291025483351}
-    thrustKey: 100
+    thrustKey: 119
     side: 1
     t: {fileID: 3098798291055051558}
     timeSinceLast: 0
@@ -316,11 +316,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 97b8f8c5eceb19743a4610cf9550ee53, type: 3}
   - {fileID: 8300000, guid: 0b0304f3167be224fa8b6aa02c7e1c56, type: 3}
   - {fileID: 8300000, guid: f0f7a0512f29e09458782bde559c3dd6, type: 3}
-  dashVolume: 1
-  group: {fileID: 24300002, guid: cd3d000480f16bb4197432ec498f0b12, type: 2}
+  dashVolume: 0.22
+  group: {fileID: 0}
   prcticles:
   - {fileID: 3098798291609206414}
   - {fileID: 111934144138675447}
+  jumpKey: 32
+  jumpForce: 936.7
+  groundRaycastMask:
+    serializedVersion: 2
+    m_Bits: 512
+  raycastDistance: 0.7
 --- !u!54 &3098798291025483351
 Rigidbody:
   m_ObjectHideFlags: 0

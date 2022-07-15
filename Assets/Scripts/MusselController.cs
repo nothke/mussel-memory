@@ -34,7 +34,11 @@ public class MusselController : MonoBehaviour
 
     public ParticleSystem[] prcticles;
 
+    public KeyCode jumpKey = KeyCode.Space;
+    public float jumpForce = 2.0f;
     public LayerMask groundRaycastMask = -1;
+
+    public float raycastDistance = 0.3f;
 
     [System.Serializable]
     public class Shell
@@ -42,7 +46,6 @@ public class MusselController : MonoBehaviour
         public Rigidbody rb;
 
         public KeyCode thrustKey;
-        public KeyCode jumpKey;
         public float side = 1;
 
         public Transform t;
@@ -50,7 +53,6 @@ public class MusselController : MonoBehaviour
 
         public Transform forcePoint;
         public Transform meatPoint;
-        public float jumpForce = 2.0f;
 
         public float open = 0;
         public float velo = 0;
@@ -61,19 +63,7 @@ public class MusselController : MonoBehaviour
         const float smooth = 0.1f;
 
 
-        bool IsGrounded()
-        {
-            const float raycastDistance = Mathf.Infinity;
 
-            if (Physics.Raycast(meatPoint.position, Vector3.down, out RaycastHit hit,
-                raycastDistance, e.groundRaycastMask))
-            {
-                Debug.Log("t");
-                return true;
-
-            }
-            return false;
-        }
 
         public void Update()
         {
@@ -91,13 +81,8 @@ public class MusselController : MonoBehaviour
             {
                 e.openClips.Play2D(e.dashVolume, mixerGroup: e.group);
             }
-            bool player_jump = Input.GetKeyDown(jumpKey);
 
-            if (player_jump && IsGrounded())
-            {
-                rb.AddForce(Vector3.up * jumpForce);
 
-            }
 
             thrusting = time - timeSinceLast < 0.3f && Input.GetKey(thrustKey);
             thrust = thrusting ? 1 : 0;
@@ -105,6 +90,24 @@ public class MusselController : MonoBehaviour
             open = Mathf.SmoothDamp(open, thrustTarget, ref velo, smooth);
 
             t.localEulerAngles = new Vector3(maxAngle * (1 - open) * side, 0, 0);
+        }
+    }
+
+    bool IsGrounded()
+    {
+
+        Vector3 origin = transform.position;
+
+        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit,
+            raycastDistance, e.groundRaycastMask))
+        {
+            Debug.DrawLine(origin, hit.point, Color.red);
+            return true;
+        }
+        else
+        {
+            Debug.DrawRay(origin, Vector3.down * raycastDistance, Color.green);
+            return false;
         }
     }
 
@@ -118,6 +121,7 @@ public class MusselController : MonoBehaviour
 
         thrust -= Time.deltaTime;
         thrust = Mathf.Clamp01(thrust);
+
 
         float rotH = Input.GetAxis("Horizontal");
 
@@ -140,6 +144,15 @@ public class MusselController : MonoBehaviour
         {
             var emission = prc.emission;
             emission.rateOverTimeMultiplier = thrust * 100;
+        }
+
+        bool jompkeyPressed = Input.GetKeyDown(jumpKey);
+
+        bool goingUp = rb.velocity.y > 0;
+
+        if (IsGrounded() && !goingUp && jompkeyPressed)
+        {
+            rb.AddForce(Vector3.up * jumpForce);
         }
     }
 }
