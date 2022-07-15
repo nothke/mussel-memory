@@ -17,7 +17,6 @@ public class MusselController : MonoBehaviour
 
     float thrust = 0;
     public float thrustMult = 1;
-    float smooth = 0.1f;
     public float torqueMult = 1.0f;
 
     public Shell left;
@@ -35,6 +34,7 @@ public class MusselController : MonoBehaviour
 
     public ParticleSystem[] prcticles;
 
+    public LayerMask groundRaycastMask = -1;
 
     [System.Serializable]
     public class Shell
@@ -61,29 +61,25 @@ public class MusselController : MonoBehaviour
         const float smooth = 0.1f;
 
 
-        public void Update()
-
+        bool IsGrounded()
         {
-            bool IsGrounded()
+            const float raycastDistance = Mathf.Infinity;
+
+            if (Physics.Raycast(meatPoint.position, Vector3.down, out RaycastHit hit,
+                raycastDistance, e.groundRaycastMask))
             {
-                RaycastHit hit;
-                float raycastDistance = 150;
+                Debug.Log("t");
+                return true;
 
-                int mask = 1 << LayerMask.NameToLayer("Ground");
-
-
-                if (Physics.Raycast(meatPoint.position, Vector3.down, out hit,
-                    raycastDistance, mask))
-                {
-                    Debug.Log("t");
-                    return true;
-                    
-                }
-                return false;
             }
+            return false;
+        }
+
+        public void Update()
+        {
             float time = Time.time;
 
-            float target = Input.GetKey(thrustKey) ? 1 : 0;
+            float thrustTarget = Input.GetKey(thrustKey) ? 1 : 0;
 
             if (Input.GetKeyDown(thrustKey))
             {
@@ -102,14 +98,11 @@ public class MusselController : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpForce);
 
             }
-           
-            
-
 
             thrusting = time - timeSinceLast < 0.3f && Input.GetKey(thrustKey);
             thrust = thrusting ? 1 : 0;
 
-            open = Mathf.SmoothDamp(open, target, ref velo, smooth);
+            open = Mathf.SmoothDamp(open, thrustTarget, ref velo, smooth);
 
             t.localEulerAngles = new Vector3(maxAngle * (1 - open) * side, 0, 0);
         }
