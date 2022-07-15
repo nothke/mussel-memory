@@ -42,6 +42,7 @@ public class MusselController : MonoBehaviour
         public Rigidbody rb;
 
         public KeyCode thrustKey;
+        public KeyCode jumpKey;
         public float side = 1;
 
         public Transform t;
@@ -49,6 +50,7 @@ public class MusselController : MonoBehaviour
 
         public Transform forcePoint;
         public Transform meatPoint;
+        public float jumpForce = 2.0f;
 
         public float open = 0;
         public float velo = 0;
@@ -60,7 +62,25 @@ public class MusselController : MonoBehaviour
 
 
         public void Update()
+
         {
+            bool IsGrounded()
+            {
+                RaycastHit hit;
+                float raycastDistance = 150;
+
+                int mask = 1 << LayerMask.NameToLayer("Ground");
+
+
+                if (Physics.Raycast(meatPoint.position, Vector3.down, out hit,
+                    raycastDistance, mask))
+                {
+                    Debug.Log("t");
+                    return true;
+                    
+                }
+                return false;
+            }
             float time = Time.time;
 
             float target = Input.GetKey(thrustKey) ? 1 : 0;
@@ -75,6 +95,16 @@ public class MusselController : MonoBehaviour
             {
                 e.openClips.Play2D(e.dashVolume, mixerGroup: e.group);
             }
+            bool player_jump = Input.GetKeyDown(jumpKey);
+
+            if (player_jump && IsGrounded())
+            {
+                rb.AddForce(Vector3.up * jumpForce);
+
+            }
+           
+            
+
 
             thrusting = time - timeSinceLast < 0.3f && Input.GetKey(thrustKey);
             thrust = thrusting ? 1 : 0;
